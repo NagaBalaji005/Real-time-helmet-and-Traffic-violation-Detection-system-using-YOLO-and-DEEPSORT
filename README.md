@@ -311,4 +311,4 @@ This project is for educational and research purposes.
 - ✅ **Adaptive Distance**: Image-size aware spatial matching
 - ✅ **Quality Scoring**: OCR confidence and quality metrics
 
-**All rights reserved**
+**All rights reserved@2026**

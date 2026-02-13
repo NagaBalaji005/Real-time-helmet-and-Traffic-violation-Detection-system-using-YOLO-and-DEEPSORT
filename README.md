@@ -10,16 +10,14 @@ This system detects and tracks various traffic violations in real-time from vide
 
 ### ✅ Recent Improvements (Latest Update)
 
-1. **Removed Normalization**: Uses combined raw text directly to prevent breaking valid plates
-2. **Strict Plate Validation**: 
+1. **Strict Plate Validation**: 
    - Validates complete Indian plate format (AA BB CC DDDD)
    - Rejects incomplete plates (e.g., "BR 01 8627" - missing series)
    - State code validation (only valid Indian state codes accepted)
-3. **Smart Duplicate Handling**:
+2. **Smart Duplicate Handling**:
    - Same image: Violations are combined (e.g., pu-1 with no_helmet + mobile_usage = 1 record)
    - Different images: Same plate creates separate records
-4. **Driver-Focused Helmet Detection**: Only checks driver helmet status
-5. **Dashboard Updates**: Removed traffic_violation filter, fixed mobile usage count
+3. **Driver-Focused Helmet Detection**: Only checks driver helmet status
 
 ## 🔍 Detection Capabilities
 
@@ -298,37 +296,6 @@ names:
 - System performance metrics
 - Upload and processing status
 
-## 🆕 Recent Updates & Features
-
-### Version 2.0 Improvements
-
-1. **PaddleOCR Integration**: Replaced EasyOCR with PaddleOCR for better accuracy
-   - Advanced preprocessing with multiple variations
-   - Character remapping and correction
-   - Indian number plate format validation
-   - Quality scoring system
-
-2. **PyTorch 2.6 Compatibility**: Automatic patches for PyTorch 2.6+ compatibility
-   - Fixed `weights_only` loading issues
-   - Works seamlessly with latest PyTorch versions
-
-3. **Improved Violation Mapping**: 
-   - IoU-based spatial matching with expanded plate bounding boxes
-   - Adaptive distance calculation based on image size
-   - Multi-vehicle support with accurate plate-to-violation mapping
-   - Prevents false assignments between vehicles
-
-4. **Smart Deduplication**:
-   - Records only ONE violation per type per vehicle (driver-focused)
-   - Prevents duplicate violations for passengers
-   - Uses highest confidence detection when multiple instances found
-
-5. **Enhanced OCR Pipeline**:
-   - Multiple preprocessing strategies
-   - Pattern validation and correction
-   - RTO code fixes
-   - State code validation
-
 ## 🎓 Educational Value
 
 This project demonstrates:
@@ -344,16 +311,6 @@ This project demonstrates:
 ## 📝 License
 
 This project is for educational and research purposes.
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Test thoroughly
-5. Submit a pull request
-
----
 
 ## 🎉 **Your AI-powered traffic violation detection system is ready!**
 
@@ -372,4 +329,4 @@ This project is for educational and research purposes.
 - ✅ **Adaptive Distance**: Image-size aware spatial matching
 - ✅ **Quality Scoring**: OCR confidence and quality metrics
 
-**Happy detecting! 🚦✨**
+**All rights reserved**

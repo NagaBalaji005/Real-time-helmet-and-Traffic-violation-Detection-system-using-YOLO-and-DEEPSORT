@@ -1,0 +1,217 @@
+{
+  "total_vehicles": 0,
+  "total_violations": 2,
+  "vehicles": [
+    {
+      "plate_number": "AP 39 JP 8188",
+      "track_id": 1,
+      "violations": [
+        "overspeed",
+        "no_helmet"
+      ],
+      "violation_names": [
+        "Overspeed",
+        "No Helmet"
+      ],
+      "violation_count": 2,
+      "first_seen": "2026-02-01T17:55:29.163284",
+      "last_seen": "2026-02-01T17:56:29.404378",
+      "total_detections": 9,
+      "average_speed": 57.34090055886337,
+      "max_speed": 77.97645530369219
+    },
+    {
+      "plate_number": "AP 39 JP 8188",
+      "track_id": 2,
+      "violations": [
+        "overspeed"
+      ],
+      "violation_names": [
+        "Overspeed"
+      ],
+      "violation_count": 1,
+      "first_seen": "2026-02-01T17:56:20.841200",
+      "last_seen": "2026-02-01T17:56:20.841200",
+      "total_detections": 0,
+      "average_speed": null,
+      "max_speed": null
+    },
+    {
+      "plate_number": null,
+      "track_id": 3,
+      "violations": [],
+      "violation_names": [],
+      "violation_count": 0,
+      "first_seen": "2026-02-01T17:56:26.204066",
+      "last_seen": "2026-02-01T17:56:26.204066",
+      "total_detections": 0,
+      "average_speed": null,
+      "max_speed": null
+    },
+    {
+      "plate_number": null,
+      "track_id": 4,
+      "violations": [],
+      "violation_names": [],
+      "violation_count": 0,
+      "first_seen": "2026-02-01T17:56:39.861227",
+      "last_seen": "2026-02-01T17:56:39.861227",
+      "total_detections": 0,
+      "average_speed": null,
+      "max_speed": null
+    },
+    {
+      "plate_number": null,
+      "track_id": 5,
+      "violations": [],
+      "violation_names": [],
+      "violation_count": 0,
+      "first_seen": "2026-02-01T17:56:44.095553",
+      "last_seen": "2026-02-01T17:56:44.095553",
+      "total_detections": 0,
+      "average_speed": null,
+      "max_speed": null
+    },
+    {
+      "plate_number": null,
+      "track_id": 6,
+      "violations": [],
+      "violation_names": [],
+      "violation_count": 0,
+      "first_seen": "2026-02-01T17:56:44.862892",
+      "last_seen": "2026-02-01T17:56:44.862892",
+      "total_detections": 0,
+      "average_speed": null,
+      "max_speed": null
+    },
+    {
+      "plate_number": null,
+      "track_id": 7,
+      "violations": [],
+      "violation_names": [],
+      "violation_count": 0,
+      "first_seen": "2026-02-01T17:56:49.292208",
+      "last_seen": "2026-02-01T17:56:49.292208",
+      "total_detections": 0,
+      "average_speed": null,
+      "max_speed": null
+    },
+    {
+      "plate_number": null,
+      "track_id": 8,
+      "violations": [],
+      "violation_names": [],
+      "violation_count": 0,
+      "first_seen": "2026-02-01T17:56:50.163298",
+      "last_seen": "2026-02-01T17:56:50.163298",
+      "total_detections": 0,
+      "average_speed": null,
+      "max_speed": null
+    },
+    {
+      "plate_number": null,
+      "track_id": 9,
+      "violations": [],
+      "violation_names": [],
+      "violation_count": 0,
+      "first_seen": "2026-02-01T17:56:50.163298",
+      "last_seen": "2026-02-01T17:56:50.163298",
+      "total_detections": 0,
+      "average_speed": null,
+      "max_speed": null
+    },
+    {
+      "plate_number": null,
+      "track_id": 10,
+      "violations": [],
+      "violation_names": [],
+      "violation_count": 0,
+      "first_seen": "2026-02-01T17:56:50.892416",
+      "last_seen": "2026-02-01T17:56:50.892416",
+      "total_detections": 0,
+      "average_speed": null,
+      "max_speed": null
+    },
+    {
+      "plate_number": null,
+      "track_id": 11,
+      "violations": [],
+      "violation_names": [],
+      "violation_count": 0,
+      "first_seen": "2026-02-01T17:56:50.892416",
+      "last_seen": "2026-02-01T17:56:50.892416",
+      "total_detections": 0,
+      "average_speed": null,
+      "max_speed": null
+    },
+    {
+      "plate_number": null,
+      "track_id": 12,
+      "violations": [],
+      "violation_names": [],
+      "violation_count": 0,
+      "first_seen": "2026-02-01T17:56:51.579786",
+      "last_seen": "2026-02-01T17:56:51.579786",
+      "total_detections": 0,
+      "average_speed": null,
+      "max_speed": null
+    },
+    {
+      "plate_number": null,
+      "track_id": 13,
+      "violations": [],
+      "violation_names": [],
+      "violation_count": 0,
+      "first_seen": "2026-02-01T17:56:52.239553",
+      "last_seen": "2026-02-01T17:56:52.239553",
+      "total_detections": 0,
+      "average_speed": null,
+      "max_speed": null
+    },
+    {
+      "plate_number": null,
+      "track_id": 14,
+      "violations": [],
+      "violation_names": [],
+      "violation_count": 0,
+      "first_seen": "2026-02-01T17:56:53.034685",
+      "last_seen": "2026-02-01T17:56:53.034685",
+      "total_detections": 0,
+      "average_speed": null,
+      "max_speed": null
+    },
+    {
+      "plate_number": null,
+      "track_id": 15,
+      "violations": [],
+      "violation_names": [],
+      "violation_count": 0,
+      "first_seen": "2026-02-01T17:56:53.843904",
+      "last_seen": "2026-02-01T17:56:53.843904",
+      "total_detections": 0,
+      "average_speed": null,
+      "max_speed": null
+    },
+    {
+      "plate_number": null,
+      "track_id": 16,
+      "violations": [],
+      "violation_names": [],
+      "violation_count": 0,
+      "first_seen": "2026-02-01T17:56:59.847256",
+      "last_seen": "2026-02-01T17:56:59.847256",
+      "total_detections": 0,
+      "average_speed": null,
+      "max_speed": null
+    }
+  ],
+  "violation_types_count": {
+    "no_helmet": 1,
+    "mobile_usage": 0,
+    "phone_usage": 0,
+    "triple_riding": 0,
+    "traffic_violation": 0,
+    "overspeed": 1
+  },
+  "max_speed_detected": 81.04899933066874
+}

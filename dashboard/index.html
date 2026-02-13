@@ -1,0 +1,1660 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartTraffic - AI-Powered Traffic Violation Detection</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Cinzel:wght@400..900&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: white;
+            background-color: black;
+        }
+
+        body::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* Navbar */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            border-bottom: 1px solid rgba(255, 217, 0, 0.6);
+            padding: 10px 0px;
+            color: white;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(8px);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 0.8rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            display: flex;
+            font-family: 'Cinzel Decorative', serif;
+            align-items: center;
+            gap: 0.5rem;
+            background: linear-gradient(45deg, gold, white);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            height: 2px;
+            width: 0;
+            background: #3b82f6;
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #3b82f6;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            font-size: 1.5rem;
+        }
+
+        /* Landing Page Section */
+        .landing-page {
+            position: relative;
+            height: 100vh;
+            width: 100%;
+            background: url('/traffic.png') no-repeat center center / cover;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            overflow: hidden;
+        }
+
+        .landing-page::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        .landing-content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            max-width: 800px;
+            padding: 2rem;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .landing-title {
+            font-size: clamp(3rem, 6vw, 5rem);
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, white, #FFD700);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.1;
+            text-shadow: 0 4px 20px rgba(255, 215, 0, 0.4);
+        }
+
+        .landing-subtitle {
+            font-size: clamp(1.2rem, 3vw, 1.8rem);
+            font-weight: 400;
+            margin-bottom: 3rem;
+            opacity: 0.95;
+            line-height: 1.4;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+            color: #B0B0B0;
+        }
+
+        .landing-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            background: linear-gradient(135deg, #FFD700, #DAA520);
+            color: black;
+            padding: 1.25rem 2.5rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.4s ease;
+            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.3);
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .landing-cta:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(255, 215, 0, 0.7);
+        }
+
+        .landing-cta i {
+            font-size: 1.3rem;
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            opacity: 0.8;
+            animation: bounce 2s infinite;
+            font-size: 1.5rem;
+            z-index: 2;
+        }
+
+        @keyframes bounce {
+
+            0%,
+            20%,
+            50%,
+            80%,
+            100% {
+                transform: translateX(-50%) translateY(0);
+            }
+
+            40% {
+                transform: translateX(-50%) translateY(-10px);
+            }
+
+            60% {
+                transform: translateX(-50%) translateY(-5px);
+            }
+        }
+
+        /* Dashboard Section */
+        .dashboard-section {
+            background-color: black;
+            min-height: 100vh;
+            padding: 2rem 0;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: black;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            border-radius: 20px;
+            padding-bottom: 2rem;
+        }
+
+        .header {
+            background: linear-gradient(135deg, black, #0f172a);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+            border-bottom: 2px solid #FFD700;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+            color: #B0B0B0;
+        }
+
+        /* Stats Grid - Single Row */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 1rem;
+            padding: 2rem;
+            background: black;
+        }
+
+        .stat-card {
+            background: #1e293b;
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 215, 0, 0.2);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .stat-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            color: #FFD700;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: white;
+            margin-bottom: 0.25rem;
+            display: block;
+        }
+
+        .stat-label {
+            color: #B0B0B0;
+            font-size: 0.9rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .content {
+            padding: 2rem;
+        }
+
+        .section {
+            margin-bottom: 3rem;
+        }
+
+        .section h2 {
+            color: white;
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .section h2 i {
+            color: #3b82f6;
+        }
+
+        .controls {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            font-family: inherit;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #1d4ed8, #2563eb);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(233, 255, 36, 0.4);
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+        }
+
+        .btn-success:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
+        }
+
+        .btn-warning {
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+            color: white;
+            box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3);
+        }
+
+        .btn-warning:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(245, 158, 11, 0.4);
+        }
+
+        .filters {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: #0f172a;
+            border-radius: 12px;
+            border: 1px solid #374151;
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .filter-group label {
+            font-weight: 600;
+            color: #B0B0B0;
+            font-size: 0.9rem;
+        }
+
+        .filter-group input,
+        .filter-group select {
+            padding: 0.75rem;
+            border: 2px solid #374151;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            transition: border-color 0.3s ease;
+            background: #1e293b;
+            color: #E0E0E0;
+        }
+
+        .filter-group input:focus,
+        .filter-group select:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        .violations-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #1e293b;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            border: 1px solid #374151;
+        }
+
+        .violations-table th,
+        .violations-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #374151;
+        }
+
+        .violations-table th {
+            background: linear-gradient(135deg, #0f172a, #1f2937);
+            color: white;
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .violations-table tr:hover {
+            background: #2d3a50;
+        }
+
+        .violation-type {
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .type-no-helmet {
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
+            color: white;
+            border: 1px solid #1e40af;
+        }
+
+        .type-mobile-usage {
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+            color: white;
+        }
+
+        .type-phone-usage {
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+            color: white;
+        }
+
+        .type-overspeed {
+            background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+            color: white;
+        }
+
+        .type-speed-violation {
+            background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+            color: white;
+        }
+
+        .type-triple-riding {
+            background: linear-gradient(135deg, #f97316, #ea580c);
+            color: white;
+        }
+
+        .type-traffic-violation {
+            background: linear-gradient(135deg, #ec4899, #db2777);
+            color: white;
+        }
+
+        .severity-badge {
+            padding: 0.25rem 0.5rem;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .severity-low {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .severity-medium {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .severity-high {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .severity-critical {
+            background: #fce7f3;
+            color: #831843;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(5px);
+            overflow: auto;
+        }
+
+        .modal-content {
+            background-color: black;
+            margin: 5% auto;
+            padding: 2rem;
+            border-radius: 16px;
+            width: 90%;
+            max-width: 700px;
+            position: relative;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
+            border: 1px solid #374151;
+        }
+
+        .close {
+            position: absolute;
+            right: 1.5rem;
+            top: 1rem;
+            font-size: 1.5rem;
+            font-weight: bold;
+            cursor: pointer;
+            color: #B0B0B0;
+            transition: color 0.3s ease;
+        }
+
+        .close:hover {
+            color: #ef4444;
+        }
+
+        .upload-area {
+            border: 2px dashed #3b82f6;
+            border-radius: 12px;
+            padding: 3rem;
+            text-align: center;
+            margin: 1.5rem 0;
+            transition: all 0.3s ease;
+            background: #0f172a;
+        }
+
+        .upload-area:hover {
+            border-color: #2563eb;
+            background: #1e293b;
+        }
+
+        .upload-area.dragover {
+            border-color: #10b981;
+            background: #1f3d35;
+        }
+
+        .loading,
+        .error,
+        .success {
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            font-weight: 500;
+        }
+
+        .loading {
+            background: #eff6ff;
+            color: #1d4ed8;
+            border: 1px solid #bfdbfe;
+        }
+
+        .error {
+            background: #fef2f2;
+            color: #dc2626;
+            border: 1px solid #fecaca;
+        }
+
+        .success {
+            background: #f0fdf4;
+            color: #166534;
+            border: 1px solid #bbf7d0;
+        }
+
+        /* Features Section */
+        .features-section {
+            padding: 5rem 2rem;
+            background: black;
+            text-align: center;
+            border-top: 1px solid #374151;
+        }
+
+        .features-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .features-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 1rem;
+        }
+
+        .features-subtitle {
+            font-size: 1.2rem;
+            color: #B0B0B0;
+            margin-bottom: 4rem;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .feature-card {
+            background: #1e293b;
+            padding: 2.5rem;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            border: 1px solid #374151;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            color: #FFD700;
+            margin-bottom: 1.5rem;
+        }
+
+        .feature-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: white;
+            margin-bottom: 1rem;
+        }
+
+        .feature-description {
+            color: #B0B0B0;
+            line-height: 1.6;
+        }
+
+        /* Footer */
+        .footer {
+            background-color: rgba(27, 27, 27, 0.2);
+            color: white;
+            padding: 4rem 2rem;
+            text-align: center;
+            border-top: 1px solid rgba(255, 217, 0, 0.671);
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-logo {
+            font-size: 2rem;
+            font-weight: 700;
+            color: white;
+            font-family: 'Cinzel Decorative', serif;
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-tagline {
+            font-size: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-links {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: #FFD700;
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .social-icons a {
+            color: white;
+            font-size: 1.5rem;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        .social-icons a:hover {
+            color: #FFD700;
+            transform: scale(1.2);
+        }
+
+        .footer-copy {
+            font-size: 0.9rem;
+            color: #6B7280;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .stats-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar .nav-links {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                background: rgba(0, 0, 0, 0.95);
+                position: absolute;
+                top: 60px;
+                left: 0;
+                padding: 1rem 0;
+                border-top: 1px solid rgba(255, 217, 0, 0.6);
+            }
+
+            .navbar .nav-links.active {
+                display: flex;
+            }
+
+            .nav-links li {
+                text-align: center;
+                padding: 0.5rem 0;
+            }
+
+            .hamburger {
+                display: block;
+            }
+
+            .landing-title {
+                font-size: 2.5rem;
+            }
+
+            .landing-subtitle {
+                font-size: 1.2rem;
+            }
+
+            .landing-cta {
+                padding: 1rem 2rem;
+                font-size: 1rem;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+                padding: 1rem;
+            }
+
+            .stat-card {
+                padding: 1rem;
+            }
+
+            .stat-number {
+                font-size: 1.5rem;
+            }
+
+            .controls,
+            .filters {
+                grid-template-columns: 1fr;
+            }
+
+            .violations-table {
+                font-size: 0.8rem;
+            }
+
+            .violations-table th,
+            .violations-table td {
+                padding: 0.5rem;
+            }
+
+            .footer-links {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .landing-content {
+                padding: 0 1rem;
+            }
+
+            .header h1 {
+                font-size: 1.8rem;
+            }
+
+            .section h2 {
+                font-size: 1.5rem;
+            }
+
+            .footer-links {
+                gap: 0.5rem;
+            }
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Custom styles for violation details modal */
+        .violation-details h3 {
+            color: #FFD700;
+            border-bottom: 2px solid #374151;
+            padding-bottom: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .detail-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .detail-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem;
+            background: #1e293b;
+            border-radius: 8px;
+            color: #B0B0B0;
+        }
+
+        .detail-item strong {
+            color: white;
+        }
+
+        .detail-item .violation-type,
+        .detail-item .severity-badge {
+            margin-left: auto;
+        }
+
+        .full-width {
+            grid-column: 1 / -1;
+            display: block;
+        }
+
+        .detail-image {
+            margin-top: 2rem;
+            text-align: center;
+        }
+
+        .detail-image h4 {
+            color: white;
+            margin-bottom: 1rem;
+        }
+
+        /* Adding hover effects for buttons */
+        .btn:hover {
+            opacity: 0.9;
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                Road Predator
+            </div>
+            <ul class="nav-links" id="nav-links">
+                <li><a href="#landing-page">Home</a></li>
+                <li><a href="#dashboard">Dashboard</a></li>
+                <li><a href="#features-section">Features</a></li>
+            </ul>
+            <div class="hamburger" id="hamburger-icon">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </nav>
+
+    <section class="landing-page" id="landing-page">
+        <div class="landing-content">
+            <h1 class="landing-title">
+                SmartTraffic AI
+            </h1>
+            <p class="landing-subtitle">
+                Revolutionary AI-powered traffic violation detection system that makes roads safer through intelligent
+                monitoring and real-time analysis
+            </p>
+            <button class="landing-cta" onclick="scrollToDashboard()">
+                <i class="fas fa-rocket"></i>
+                Get Started Now
+            </button>
+        </div>
+
+        <div class="scroll-indicator">
+            <i class="fas fa-chevron-down"></i>
+        </div>
+    </section>
+
+
+    <section id="dashboard" class="dashboard-section">
+        <div class="container">
+            <div class="header">
+                <h1><i class="fas fa-traffic-light"></i> Traffic Violation Detection Dashboard</h1>
+                <p>Real-time monitoring and analysis system</p>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <i class="fas fa-exclamation-triangle stat-icon"></i>
+                    <div class="stat-number" id="total-violations">0</div>
+                    <div class="stat-label">Total Violations</div>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-calendar-day stat-icon"></i>
+                    <div class="stat-number" id="today-violations">0</div>
+                    <div class="stat-label">Today's Violations</div>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-tachometer-alt stat-icon"></i>
+                    <div class="stat-number" id="speed-violations">0</div>
+                    <div class="stat-label">Speed Violations</div>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-hard-hat stat-icon"></i>
+                    <div class="stat-number" id="helmet-violations">0</div>
+                    <div class="stat-label">No Helmet</div>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-mobile-alt stat-icon"></i>
+                    <div class="stat-number" id="mobile-usage-violations">0</div>
+                    <div class="stat-label">Mobile Usage</div>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-users stat-icon"></i>
+                    <div class="stat-number" id="triple-riding-violations">0</div>
+                    <div class="stat-label">Triple Riding</div>
+                </div>
+            </div>
+
+            <div class="content">
+                <div class="section">
+                    <h2><i class="fas fa-cogs" style="color: gold;"></i> System Controls</h2>
+                    <div class="controls">
+                        <button class="btn btn-primary" onclick="refreshData()">
+                            <i class="fas fa-sync-alt"></i> Refresh Data
+                        </button>
+                        <button class="btn btn-success" onclick="openUploadModal()">
+                            <i class="fas fa-cloud-upload-alt"></i> Upload Media
+                        </button>
+                        <button class="btn btn-warning" onclick="exportData()">
+                            <i class="fas fa-download"></i> Export Data
+                        </button>
+                        <a href="/health" class="btn btn-primary2"
+                            style="background-color: violet; text-decoration: none; color: white;" target="_blank">
+                            <i class="fas fa-heartbeat"></i> System Health
+                        </a>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2><i class="fas fa-filter" style="color: gold;"></i> Violations</h2>
+                    <div class="filters">
+                        <div class="filter-group">
+                            <label><i class="fas fa-tags"></i> Violation Type:</label>
+                            <select id="type-filter">
+                                <option value="">All Types</option>
+                                <option value="no_helmet">No Helmet</option>
+                                <option value="mobile_usage">Mobile Usage</option>
+                                <option value="overspeed">Overspeed</option>
+                                <option value="triple_riding">Triple Riding</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label><i class="fas fa-id-card"></i> Plate Number:</label>
+                            <input type="text" id="plate-filter" placeholder="Enter plate number">
+                        </div>
+                        <div class="filter-group">
+                            <label><i class="fas fa-calendar-alt"></i> Start Date:</label>
+                            <input type="date" id="start-date">
+                        </div>
+                        <div class="filter-group">
+                            <label><i class="fas fa-calendar-alt"></i> End Date:</label>
+                            <input type="date" id="end-date">
+                        </div>
+                        <div class="filter-group">
+                            <button class="btn btn-primary3"
+                                style="text-decoration: none; background-color: gold; color: white;"
+                                onclick="applyFilters()">
+                                <i class="fas fa-search"></i> Apply Filters
+                            </button>
+                        </div>
+                    </div>
+
+                    <div id="violations-container">
+                        <div class="loading">
+                            <i class="fas fa-spinner fa-spin"></i> Loading violations...
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div id="uploadModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeUploadModal()">&times;</span>
+            <h2><i class="fas fa-upload"></i> Upload Media for Processing</h2>
+            <div class="upload-area" id="uploadArea">
+                <i class="fas fa-cloud-upload-alt" style="font-size: 3rem; color: #3b82f6; margin-bottom: 1rem;"></i>
+                <p style="color: #E0E0E0">Drag and drop an image or video file here or click to select</p>
+                <input type="file" id="mediaFile" accept="image/*,video/*" style="display: none;">
+                <button class="btn btn-primary" onclick="document.getElementById('mediaFile').click()">
+                    <i class="fas fa-folder-open"></i> Choose File
+                </button>
+            </div>
+            <div id="uploadStatus"></div>
+            <div style="margin-top: 20px; display: flex; gap: 1rem;">
+                <button class="btn btn-success" onclick="processMedia()" id="processBtn" disabled>
+                    <i class="fas fa-sync"></i> Refresh Data
+                </button>
+                <button class="btn btn-warning" onclick="closeUploadModal()">
+                    <i class="fas fa-times"></i> Cancel
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <section class="features-section" id="features-section">
+        <div class="features-container">
+            <h2 class="features-title">Why Choose SmartTraffic AI?</h2>
+            <p class="features-subtitle">Advanced technology meets practical solutions for modern traffic management</p>
+
+            <div class="features-grid">
+                <div class="feature-card">
+                    <i class="fas fa-eye feature-icon"></i>
+                    <h3 class="feature-title">Real-time Detection</h3>
+                    <p class="feature-description">24/7 monitoring with instant violation alerts and automated reporting
+                        systems</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-brain feature-icon"></i>
+                    <h3 class="feature-title">AI-Powered Analysis</h3>
+                    <p class="feature-description">Machine learning algorithms for accurate detection with 99.5%
+                        precision rate</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-chart-line feature-icon"></i>
+                    <h3 class="feature-title">Smart Analytics</h3>
+                    <p class="feature-description">Comprehensive reporting and traffic insights for data-driven
+                        decisions</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-traffic-light feature-icon"></i>
+                    <h3 class="feature-title">Adaptive Signal Control</h3>
+                    <p class="feature-description">Dynamic traffic light adjustments based on real-time congestion
+                        levels</p>
+                </div>
+
+                <div class="feature-card">
+                    <i class="fas fa-route feature-icon"></i>
+                    <h3 class="feature-title">Optimized Routing</h3>
+                    <p class="feature-description">Smart navigation suggestions to minimize travel time and avoid
+                        bottlenecks</p>
+                </div>
+
+                <div class="feature-card">
+                    <i class="fas fa-shield-alt feature-icon"></i>
+                    <h3 class="feature-title">Incident Management</h3>
+                    <p class="feature-description">Rapid detection and response to accidents or hazards for enhanced
+                        road safety</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-logo">
+                Road Predator
+            </div>
+            <p class="footer-tagline">
+                Smarter Roads, Safer Journeys.
+            </p>
+            <ul class="footer-links">
+                <li><a href="#landing-page">Home</a></li>
+                <li><a href="#dashboard">Dashboard</a></li>
+                <li><a href="#features-section">Features</a></li>
+                <li><a href="#">Privacy Policy</a></li>
+                <li><a href="#">Terms of Service</a></li>
+            </ul>
+            <div class="social-icons">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#"><i class="fab fa-github"></i></a>
+            </div>
+            <p class="footer-copy">&copy; 2025 Road Predator. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        const hamburger = document.getElementById('hamburger-icon');
+        const navLinks = document.getElementById('nav-links');
+
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        // Close the nav menu if a link is clicked (for mobile)
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+            });
+        });
+
+        let currentViolations = [];
+        let uploadedMediaPath = null;
+        let uploadedMediaType = null;
+
+        // Smooth scroll to dashboard
+        function scrollToDashboard() {
+            document.getElementById('dashboard').scrollIntoView({
+                behavior: 'smooth'
+            });
+        }
+
+        // Initialize dashboard
+        document.addEventListener('DOMContentLoaded', function () {
+            refreshData();
+            setupUploadHandlers();
+            animateStats();
+        });
+
+        // Animate stats on load
+        function animateStats() {
+            const statNumbers = document.querySelectorAll('.stat-number');
+            statNumbers.forEach(stat => {
+                const finalValue = parseInt(stat.textContent) || 0;
+                let currentValue = 0;
+                const increment = finalValue / 50;
+                const timer = setInterval(() => {
+                    currentValue += increment;
+                    if (currentValue >= finalValue) {
+                        stat.textContent = finalValue;
+                        clearInterval(timer);
+                    } else {
+                        stat.textContent = Math.floor(currentValue);
+                    }
+                }, 30);
+            });
+        }
+
+        // Setup upload handlers
+        function setupUploadHandlers() {
+            const uploadArea = document.getElementById('uploadArea');
+            const mediaFile = document.getElementById('mediaFile');
+
+            // Drag and drop handlers
+            uploadArea.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                uploadArea.classList.add('dragover');
+            });
+
+            uploadArea.addEventListener('dragleave', () => {
+                uploadArea.classList.remove('dragover');
+            });
+
+            uploadArea.addEventListener('drop', (e) => {
+                e.preventDefault();
+                uploadArea.classList.remove('dragover');
+                const files = e.dataTransfer.files;
+                if (files.length > 0) {
+                    handleFileSelect(files[0]);
+                }
+            });
+
+            // File input handler
+            mediaFile.addEventListener('change', (e) => {
+                if (e.target.files.length > 0) {
+                    handleFileSelect(e.target.files[0]);
+                }
+            });
+        }
+
+        // Handle file selection
+        async function handleFileSelect(file) {
+            const uploadStatus = document.getElementById('uploadStatus');
+            const processBtn = document.getElementById('processBtn');
+
+            // Check if file is image or video
+            if (!file.type.startsWith('image/') && !file.type.startsWith('video/')) {
+                uploadStatus.innerHTML = '<div class="error"><i class="fas fa-exclamation-triangle"></i> Please select a valid image or video file.</div>';
+                return;
+            }
+
+            uploadedMediaType = file.type.startsWith('image/') ? 'image' : 'video';
+            const mediaTypeText = uploadedMediaType === 'image' ? 'image' : 'video';
+            
+            uploadStatus.innerHTML = `<div class="loading"><i class="fas fa-spinner fa-spin"></i> Uploading ${mediaTypeText}...</div>`;
+            processBtn.disabled = true;
+
+            const formData = new FormData();
+            formData.append('file', file);
+
+            try {
+                // Determine base URL for API calls
+                const baseUrl = window.location.protocol === 'file:' ? 'http://localhost:8081' : '';
+                
+                const response = await fetch(`${baseUrl}/upload-video`, {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const result = await response.json();
+
+                if (response.ok) {
+                    // Media was processed during upload
+                    if (result.status === 'completed') {
+                        uploadStatus.innerHTML = `<div class="success"><i class="fas fa-check-circle"></i> ${mediaTypeText.charAt(0).toUpperCase() + mediaTypeText.slice(1)} processed successfully!</div>`;
+                        uploadedMediaPath = result.filename; // Set for compatibility
+                        processBtn.disabled = false;
+                        refreshData(); // Refresh to show new violations
+                    } else if (result.status === 'processing') {
+                        uploadStatus.innerHTML = `<div class="loading"><i class="fas fa-cog fa-spin"></i> Processing ${mediaTypeText}... This may take a while.</div>`;
+                        // Wait a bit and refresh
+                        setTimeout(() => {
+                            refreshData();
+                            uploadStatus.innerHTML = `<div class="success"><i class="fas fa-check-circle"></i> ${mediaTypeText.charAt(0).toUpperCase() + mediaTypeText.slice(1)} processed successfully!</div>`;
+                            processBtn.disabled = false;
+                        }, 5000);
+                    } else {
+                        uploadStatus.innerHTML = `<div class="success"><i class="fas fa-check-circle"></i> ${mediaTypeText.charAt(0).toUpperCase() + mediaTypeText.slice(1)} uploaded successfully: ${file.name}</div>`;
+                        uploadedMediaPath = result.filename;
+                        processBtn.disabled = false;
+                    }
+                } else {
+                    uploadStatus.innerHTML = `<div class="error"><i class="fas fa-times-circle"></i> Upload failed: ${result.detail}</div>`;
+                }
+            } catch (error) {
+                uploadStatus.innerHTML = `<div class="error"><i class="fas fa-times-circle"></i> Upload failed: ${error.message}</div>`;
+            }
+        }
+
+        // Process uploaded media (now just refreshes data since media is processed during upload)
+        async function processMedia() {
+            const uploadStatus = document.getElementById('uploadStatus');
+            const processBtn = document.getElementById('processBtn');
+
+            uploadStatus.innerHTML = '<div class="loading"><i class="fas fa-sync fa-spin"></i> Refreshing violation data...</div>';
+            processBtn.disabled = true;
+
+            try {
+                // Refresh the data to show latest violations
+                await refreshData();
+                uploadStatus.innerHTML = '<div class="success"><i class="fas fa-check-circle"></i> Data refreshed successfully! Check the violations table below.</div>';
+            } catch (error) {
+                uploadStatus.innerHTML = `<div class="error"><i class="fas fa-times-circle"></i> Failed to refresh data: ${error.message}</div>`;
+            }
+
+            processBtn.disabled = false;
+        }
+
+        // Refresh data
+        async function refreshData() {
+            try {
+                // Determine base URL for API calls
+                const baseUrl = window.location.protocol === 'file:' ? 'http://127.0.0.1:8081' : '';
+                
+                // Get statistics
+                const statsResponse = await fetch(`${baseUrl}/stats`);
+                const stats = await statsResponse.json();
+
+                document.getElementById('total-violations').textContent = stats.total_violations;
+                document.getElementById('today-violations').textContent = stats.recent_violations_24h;
+                document.getElementById('speed-violations').textContent = stats.violation_types?.speed || 0;
+                document.getElementById('helmet-violations').textContent = stats.violation_types?.helmet || 0;
+                document.getElementById('mobile-usage-violations').textContent = stats.violation_types?.mobile_usage || 0;
+                document.getElementById('triple-riding-violations').textContent = stats.violation_types?.triple_riding || 0;
+
+                // Get violations
+                const violationsResponse = await fetch(`${baseUrl}/violations?limit=50`);
+                const violationsData = await violationsResponse.json();
+                currentViolations = violationsData.violations;
+
+                displayViolations(currentViolations);
+                animateStats();
+            } catch (error) {
+                console.error('Error refreshing data:', error);
+                document.getElementById('violations-container').innerHTML =
+                    '<div class="error"><i class="fas fa-exclamation-triangle"></i> Failed to load data. Please check the server connection.</div>';
+            }
+        }
+
+        // Display violations
+        function displayViolations(violations) {
+            const container = document.getElementById('violations-container');
+
+            if (violations.length === 0) {
+                container.innerHTML = '<div class="loading"><i class="fas fa-info-circle"></i> No violations found.</div>';
+                return;
+            }
+
+            const table = `
+                <table class="violations-table">
+                    <thead>
+                        <tr>
+                            <th><i class="fas fa-hashtag"></i> ID</th>
+                            <th><i class="fas fa-id-card"></i> Plate Number</th>
+                            <th><i class="fas fa-list"></i> Violation Types</th>
+                            <th><i class="fas fa-exclamation"></i> Total Violations</th>
+                            <th><i class="fas fa-tachometer-alt"></i> Speed</th>
+                            <th><i class="fas fa-shield-alt"></i> Severity</th>
+                            <th><i class="fas fa-map-marker-alt"></i> Location</th>
+                            <th><i class="fas fa-clock"></i> Time</th>
+                            <th><i class="fas fa-cogs"></i> Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${violations.map(violation => {
+                            // Convert violations dict to array for processing
+                            const violationsArray = Object.values(violation.violations || {});
+
+                            // Get violation types (already aggregated in server) - display vertically stacked
+                            const typeBadges = violationsArray.map(v => {
+                                // Display type as-is (triple_riding should already be stored correctly)
+                                const displayType = v.type;
+                                return `<div style="margin-bottom: 0.5rem; display: block;"><span class="violation-type type-${displayType.replace('_', '-')}">${displayType.replace('_', ' ').toUpperCase()}</span></div>`;
+                            }).join('');
+
+                            // Get speed and severity info from violations
+                            const speeds = violationsArray.map(v => v.speed).filter(s => s != null && s > 0);
+                            const avgSpeed = speeds.length > 0 ? (speeds.reduce((a, b) => a + b, 0) / speeds.length).toFixed(1) : 'N/A';
+                            const severities = violationsArray.map(v => v.severity).filter(s => s);
+                            const highestSeverity = severities.length > 0 ? severities[0] : 'medium'; // Default to medium
+
+                            return `
+                                <tr>
+                                    <td>${violation.id || 'N/A'}</td>
+                                    <td><strong>${violation.plate_number || 'Unknown'}</strong></td>
+                                    <td>${typeBadges}</td>
+                                    <td><span class="severity-badge severity-high">${violation.total_violations}</span></td>
+                                    <td>${avgSpeed !== 'N/A' ? `${avgSpeed} km/h` : 'N/A'}</td>
+                                    <td><span class="severity-badge severity-${highestSeverity}">${highestSeverity}</span></td>
+                                    <td>${violation.location || 'Unknown'}</td>
+                                    <td>${formatTimestamp(violation.first_timestamp)}</td>
+                                    <td>
+                                        <button class="btn btn-primary" onclick="viewGroupedDetails(${violation.id})" style="padding: 0.5rem;"><i class="fas fa-info-circle"></i></button>
+                                    </td>
+                                </tr>
+                            `;
+                        }).join('')}
+                    </tbody>
+                </table>
+            `;
+
+            container.innerHTML = table;
+        }
+
+        // Apply filters
+        function applyFilters() {
+            const typeFilter = document.getElementById('type-filter').value;
+            const plateFilter = document.getElementById('plate-filter').value;
+            const startDate = document.getElementById('start-date').value;
+            const endDate = document.getElementById('end-date').value;
+
+            let filteredViolations = currentViolations;
+
+            if (typeFilter) {
+                // Filter by violation type within the grouped violations
+                filteredViolations = filteredViolations.filter(v =>
+                    Object.values(v.violations || {}).some(violation => violation.type === typeFilter)
+                );
+            }
+
+            if (plateFilter) {
+                filteredViolations = filteredViolations.filter(v =>
+                    v.plate_number && v.plate_number.toLowerCase().includes(plateFilter.toLowerCase())
+                );
+            }
+
+            if (startDate) {
+                filteredViolations = filteredViolations.filter(v =>
+                    v.first_timestamp >= startDate + 'T00:00:00'
+                );
+            }
+
+            if (endDate) {
+                filteredViolations = filteredViolations.filter(v =>
+                    v.first_timestamp <= endDate + 'T23:59:59'
+                );
+            }
+
+            displayViolations(filteredViolations);
+        }
+
+        // Export data
+        function exportData() {
+            // Flatten grouped violations into individual records
+            const allViolations = [];
+            currentViolations.forEach(vehicle => {
+                Object.values(vehicle.violations || {}).forEach(violation => {
+                    // Create entries for each count of this violation type
+                    for (let i = 0; i < violation.count; i++) {
+                        allViolations.push({
+                            vehicle_id: vehicle.id,
+                            plate_number: vehicle.plate_number,
+                            type: violation.type,
+                            speed: violation.speed || '',
+                            speed_limit: violation.speed_limit || '',
+                            timestamp: violation.timestamp,
+                            location: vehicle.location,
+                            confidence: violation.confidence || '',
+                            description: violation.description || ''
+                        });
+                    }
+                });
+            });
+
+            const csvContent = "data:text/csv;charset=utf-8,"
+                + "Vehicle ID,Plate Number,Type,Speed,Speed Limit,Location,Timestamp,Confidence,Description\n"
+                + allViolations.map(v =>
+                    `"${v.vehicle_id || ''}","${v.plate_number || ''}","${v.type}","${v.speed}","${v.speed_limit}","${v.location || ''}","${v.timestamp}","${v.confidence}","${v.description}"`
+                ).join('\n');
+
+            const encodedUri = encodeURI(csvContent);
+            const link = document.createElement("a");
+            link.setAttribute("href", encodedUri);
+            link.setAttribute("download", `violations_${new Date().toISOString().split('T')[0]}.csv`);
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        // View violation image
+        function viewImage(imagePath) {
+            window.open(`/violations/image?path=${encodeURIComponent(imagePath)}`, '_blank');
+        }
+
+        // View violation details
+        function viewDetails(violationId) {
+            const violation = currentViolations.find(v => v.id === violationId);
+            if (violation) {
+                const details = `
+                    <div class="violation-details">
+                        <h3><i class="fas fa-info-circle"></i> Violation Details</h3>
+                        <div class="detail-grid">
+                            <div class="detail-item">
+                                <strong><i class="fas fa-hashtag"></i> ID:</strong> ${violation.id}
+                            </div>
+                            <div class="detail-item">
+                                <strong><i class="fas fa-tags"></i> Type:</strong> <span class="violation-type type-${violation.type.replace('_', '-')}">${violation.type.replace('_', ' ')}</span>
+                            </div>
+                            <div class="detail-item">
+                                <strong><i class="fas fa-exclamation"></i> Severity:</strong> <span class="severity-badge severity-${violation.severity || 'medium'}">${violation.severity || 'medium'}</span>
+                            </div>
+                            <div class="detail-item">
+                                <strong><i class="fas fa-id-card"></i> Plate Number:</strong> ${violation.plate_number || 'Unknown'}
+                            </div>
+                            <div class="detail-item">
+                                <strong><i class="fas fa-car"></i> Vehicle Type:</strong> ${violation.vehicle_type || 'Unknown'}
+                            </div>
+                            <div class="detail-item">
+                                <strong><i class="fas fa-palette"></i> Vehicle Color:</strong> ${violation.vehicle_color || 'Unknown'}
+                            </div>
+                            <div class="detail-item">
+                                <strong><i class="fas fa-tachometer-alt"></i> Speed:</strong> ${violation.actual_speed ? `${violation.actual_speed.toFixed(1)} ${violation.speed_unit || 'km/h'}` : 'N/A'}
+                            </div>
+                            <div class="detail-item">
+                                <strong><i class="fas fa-road"></i> Speed Limit:</strong> ${violation.speed_limit ? `${violation.speed_limit} ${violation.speed_unit || 'km/h'}` : 'N/A'}
+                            </div>
+                            <div class="detail-item">
+                                <strong><i class="fas fa-map-marker-alt"></i> Location:</strong> ${violation.location || 'Unknown'}
+                            </div>
+                            <div class="detail-item">
+                                <strong><i class="fas fa-video"></i> Camera:</strong> ${violation.camera_id || 'N/A'}
+                            </div>
+                            <div class="detail-item">
+                                <strong><i class="fas fa-clock"></i> Timestamp:</strong> ${formatTimestamp(violation.timestamp)}
+                            </div>
+                            <div class="detail-item">
+                                <strong><i class="fas fa-percentage"></i> Confidence:</strong> ${violation.confidence ? `${(violation.confidence * 100).toFixed(1)}%` : 'N/A'}
+                            </div>
+                            <div class="detail-item full-width">
+                                <strong><i class="fas fa-file-alt"></i> Description:</strong> ${violation.description || 'No description available'}
+                            </div>
+                        </div>
+                        ${violation.image_path ? `
+                            <div class="detail-image">
+                                <h4><i class="fas fa-image"></i> Evidence Image</h4>
+                                <img src="/violations/image?path=${encodeURIComponent(violation.image_path)}" alt="Violation Evidence" style="max-width: 100%; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+                            </div>
+                        ` : ''}
+                    </div>
+                `;
+
+                // Create modal for details
+                const modal = document.createElement('div');
+                modal.className = 'modal';
+                modal.innerHTML = `
+                    <div class="modal-content">
+                        <span class="close" onclick="this.parentElement.parentElement.remove()">&times;</span>
+                        ${details}
+                    </div>
+                `;
+                document.body.appendChild(modal);
+                modal.style.display = 'block';
+            }
+        }
+
+        // View grouped violation details for a vehicle (plate)
+        function viewGroupedDetails(violationId) {
+            const violation = currentViolations.find(v => v.id === violationId);
+            if (!violation) return;
+
+            // Convert violations dict to array for display
+            const violationsArray = Object.values(violation.violations || {});
+
+            // Top section: full violation details
+            const mainDetails = `
+                <div class="violation-details">
+                    <h3><i class="fas fa-info-circle"></i> Violation Details</h3>
+                    <div class="detail-grid">
+                        <div class="detail-item"><strong>ID:</strong> ${violation.id}</div>
+                        <div class="detail-item"><strong>Severity:</strong> <span class="severity-badge severity-${violation.severity || 'medium'}">${violation.severity || 'medium'}</span></div>
+                        <div class="detail-item"><strong>Plate Number:</strong> ${violation.plate_number || 'Unknown'}</div>
+                        <div class="detail-item"><strong>Vehicle Type:</strong> ${violation.vehicle_type || 'Unknown'}</div>
+                        <div class="detail-item"><strong>Vehicle Color:</strong> ${violation.vehicle_color || 'Unknown'}</div>
+                        <div class="detail-item"><strong>Speed:</strong> ${violation.actual_speed ? `${violation.actual_speed.toFixed(1)} ${violation.speed_unit || 'km/h'}` : 'N/A'}</div>
+                        <div class="detail-item"><strong>Speed Limit:</strong> 40 km/h</div>
+                        <div class="detail-item"><strong>Location:</strong> ${violation.location || 'Unknown'}</div>
+                        <div class="detail-item"><strong>Camera:</strong> ${violation.camera_id || 'N/A'}</div>
+                        <div class="detail-item"><strong>Timestamp:</strong> ${formatTimestamp(violation.timestamp || violation.first_timestamp)}</div>
+                        <div class="detail-item"><strong>Confidence:</strong> ${violation.confidence !== undefined && violation.confidence !== null ? `${(violation.confidence * 100).toFixed(1)}%` : 'N/A'}</div>
+                        <div class="detail-item full-width"><strong>Description:</strong> ${violationsArray.map(v => `Detected ${v.type} with ${(v.confidence * 100).toFixed(1)}% confidence`).join(', ')}</div>
+                    </div>
+                    ${violation.image_path ? `<div class="detail-image">
+                        <h4>Evidence Image</h4>
+                        <img src="/violations/image?path=${encodeURIComponent(violation.image_path)}" alt="Violation Evidence" style="max-width:100%; border-radius:8px;">
+                    </div>` : ''}
+                </div>
+            `;
+
+            // Bottom section: only violation names with counts
+            const violationsList = `
+                <div class="vehicle-violations">
+                    <h3 style="margin-top:2rem;"><i class="fas fa-list"></i> Violations (${violation.total_violations})</h3>
+                    <div style="margin-top:1rem;">
+                        ${violationsArray.map(v => `
+                            <div style="border:1px solid #374151; border-radius:8px; padding:0.5rem; margin-bottom:0.5rem; background:#1e293b;">
+                                <span class="violation-type type-${v.type.replace('_','-')}">${v.type.replace('_',' ').toUpperCase()}</span>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+
+            // Create modal with both sections
+            const modal = document.createElement('div');
+            modal.className = 'modal';
+            modal.innerHTML = `
+                <div class="modal-content">
+                    <span class="close" onclick="this.parentElement.parentElement.remove()">&times;</span>
+                    ${mainDetails}
+                    ${violationsList}
+                </div>
+            `;
+            document.body.appendChild(modal);
+            modal.style.display = 'block';
+        }
+
+        // Modal functions
+        function openUploadModal() {
+            document.getElementById('uploadModal').style.display = 'block';
+        }
+
+        function closeUploadModal() {
+            document.getElementById('uploadModal').style.display = 'none';
+            document.getElementById('uploadStatus').innerHTML = '';
+            document.getElementById('videoFile').value = '';
+            uploadedVideoPath = null;
+        }
+
+        // Utility functions
+        function formatTimestamp(timestamp) {
+            if (!timestamp) return 'N/A';
+            const date = new Date(timestamp);
+            return date.toLocaleString();
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function (event) {
+            const modal = document.getElementById('uploadModal');
+            if (event.target === modal) {
+                closeUploadModal();
+            }
+        }
+    </script>
+</body>
+
+</html>

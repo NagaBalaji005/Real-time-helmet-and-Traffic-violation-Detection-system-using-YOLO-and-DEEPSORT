@@ -1,0 +1,15 @@
+# data.yaml
+path: D:/final-year-project/dataset
+train: train/images
+val: val/images
+
+# number of classes
+nc: 5  
+
+# class names (visual violations + number plates only)
+names:
+  0: helmet
+  1: no_helmet
+  2: mobile_usage
+  3: triple_riding
+  4: number_plate

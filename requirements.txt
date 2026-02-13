@@ -1,0 +1,40 @@
+# ============================
+# Core numerical stack
+# ============================
+numpy==1.24.3
+scipy==1.11.4
+Pillow==10.0.1
+
+# ============================
+# Computer Vision (COMPATIBLE)
+# ============================
+opencv-python==4.6.0.66
+ultralytics==8.0.196
+
+# ============================
+# OCR (PaddleOCR – CPU, Windows-safe)
+# ============================
+paddlepaddle==2.6.2
+paddleocr==2.7.0.3
+
+# ============================
+# Tracking & Filtering
+# ============================
+deep-sort-realtime==1.3.2
+filterpy==1.4.5
+
+# ============================
+# Backend & Database
+# ============================
+fastapi==0.104.1
+uvicorn[standard]==0.24.0
+python-multipart==0.0.6
+
+sqlalchemy==2.0.23
+alembic==1.12.1
+psycopg2-binary==2.9.9
+
+# ============================
+# Environment utilities
+# ============================
+python-dotenv==1.0.0

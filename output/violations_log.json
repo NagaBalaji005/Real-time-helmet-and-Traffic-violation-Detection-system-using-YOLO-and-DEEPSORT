@@ -1,0 +1,42 @@
+[
+  {
+    "id": "vid_1",
+    "plate_number": "AP 39 JP 8188",
+    "type": "no_helmet",
+    "type_name": "No Helmet",
+    "confidence": 0.823637843132019,
+    "timestamp": "2026-02-01T17:56:20.842196",
+    "frame_number": 14,
+    "bbox": [
+      213.73167419433594,
+      605.3818969726562,
+      359.3803405761719,
+      759.9723510742188
+    ],
+    "speed": "13.6 km/h",
+    "location": "Traffic Camera",
+    "severity": "high",
+    "description": "No Helmet detected",
+    "track_id": "TRACK_1"
+  },
+  {
+    "id": "vid_2",
+    "plate_number": "AP 39 JP 8188",
+    "type": "overspeed",
+    "type_name": "Overspeed",
+    "confidence": 0.8140550851821899,
+    "timestamp": "2026-02-01T17:56:27.848723",
+    "frame_number": 20,
+    "bbox": [
+      904.5528564453125,
+      399.5266418457031,
+      1079.5096435546875,
+      616.1504516601562
+    ],
+    "speed": "53.8 km/h",
+    "location": "Traffic Camera",
+    "severity": "high",
+    "description": "Overspeed detected",
+    "track_id": "TRACK_1"
+  }
+]

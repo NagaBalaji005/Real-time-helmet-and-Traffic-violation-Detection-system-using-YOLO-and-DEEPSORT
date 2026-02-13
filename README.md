@@ -211,7 +211,7 @@ The system detects **5 main classes**:
 
 ### Detection Performance
 - **Processing Speed**: ~8-10 FPS on CPU
-- **Confidence Threshold**: 0.3 (configurable)
+- **Confidence Threshold**: 0.7 (configurable)
 - **Supported Formats**: MP4, AVI, MOV, JPG, PNG
 - **Resolution**: Up to 4K supported
 
@@ -229,7 +229,7 @@ CLASSES = {
 }
 
 # Detection Thresholds
-CONFIDENCE_THRESHOLD = 0.3
+CONFIDENCE_THRESHOLD = 0.7
 IOU_THRESHOLD = 0.5
 
 # Speed Monitoring
@@ -250,24 +250,6 @@ names:
   3: triple_riding
   4: number_plate
 ```
-
-## 🚨 Troubleshooting
-
-### Server Issues
-- **Port 8081 in use**: Change port in `simple_server.py`
-- **Model not found**: Ensure `runs/train/final_model2/weights/best.pt` exists
-- **Dependencies missing**: Run `pip install -r requirements.txt`
-
-### Processing Issues
-- **Video format**: Use MP4 format for best compatibility
-- **Memory issues**: Reduce batch size in processing scripts
-- **OCR errors**: Ensure PaddleOCR is properly installed (`pip install paddleocr paddlepaddle`)
-- **PyTorch 2.6 compatibility**: The system includes automatic patches for PyTorch 2.6+ compatibility
-- **Model loading errors**: Ensure model weights exist at `runs/train/final_model_refined/weights/best.pt`
-
-### Database Issues
-- **Connection failed**: Install PostgreSQL and run `setup_database.py`
-- **Schema errors**: Check `database_setup.sql` file
 
 ## 🔄 System Workflow
 
@@ -312,7 +294,7 @@ This project demonstrates:
 
 This project is for educational and research purposes.
 
-## 🎉 **Your AI-powered traffic violation detection system is ready!**
+## 🎉 **AI-powered traffic violation detection system is ready!**
 
 **Dashboard**: http://localhost:8081/dashboard  
 **API Docs**: http://localhost:8081/docs  
@@ -329,4 +311,4 @@ This project is for educational and research purposes.
 - ✅ **Adaptive Distance**: Image-size aware spatial matching
 - ✅ **Quality Scoring**: OCR confidence and quality metrics
 
-**All rights reserved**
+**Happy detecting! 🚦✨**
